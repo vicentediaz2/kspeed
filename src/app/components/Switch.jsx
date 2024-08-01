@@ -3,7 +3,7 @@ import {motion} from "framer-motion";
 export default function Switch({ isToggled, onToggled, onClick, icon, disabled }) {
   return (
       <label
-        className={`border flex items-center justify-center  border-white/20 dark:border-black/20  relative  w-12 h-7 overflow-hidden rounded-full`}
+        className={`border flex cursor-pointer items-center justify-center  border-white/20 dark:border-black/20  relative  w-12 h-7 overflow-hidden rounded-full`}
       >
         <input
           disabled={disabled}
