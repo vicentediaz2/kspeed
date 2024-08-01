@@ -1,8 +1,8 @@
-import { Space_Mono } from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
-const spaceMono = Space_Mono({
+const spaceMono = Rubik({
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 export const metadata = {
   title: 'Kspeed',
