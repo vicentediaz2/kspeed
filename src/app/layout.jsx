@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${spaceMono.className} `}>{children}</body>
+      <body className={`${spaceMono.className}overflow-x-hidden `}>{children}</body>
     </html>
   )
 }

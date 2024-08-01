@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Variants } from "@/app/utils/variants";
 import "../../styles/LinearOverlay.css";
 import SwitchTheme from "../SwitchTheme";
 export default function Sidebar() {
@@ -9,53 +8,54 @@ export default function Sidebar() {
     "0 0 20px 0 rgba(255,255,255,0.2)"
   );
   return (
+    <motion.div
+      initial={{ "--x": "100%", scale: 1 }}
+      animate={{ "--x": "-100%" }}
+      transition={{
+        repeat: Infinity,
+        repeatType: "loop",
+        repeatDelay: 1,
+        type: "spring",
+        stiffness: 20,
+        damping: 15,
+        mass: 2,
+      }}
+      className="fixed z-[4] hidden lg:flex  overflow-hidden top-0 left-0 w-20 border-r border-white/5 dark:border-black/20  min-h-screen items-center justify-center "
+    >
+      <span className="block  absolute inset-0  pr-[1.5px] linear-overlay " />
+      <span className="absolute p-5 top-0 bg-white dark:bg-black blur-3xl"></span>
+      <span className="absolute p-5 bottom-0 bg-white dark:bg-black blur-3xl"></span>
       <motion.div
-        initial={{ "--x": "100%", scale: 1 }}
-        animate={{ "--x": "-100%" }}
+        onAnimationComplete={() =>
+          setBoxShadow("0 0 20px 0 rgba(255,255,255,0.3)")
+        }
+        style={{ boxShadow }}
+        animate={{ scale: [0, 2, 1] }}
         transition={{
-          repeat: Infinity,
-          repeatType: "loop",
-          repeatDelay: 1,
-          type: "spring",
-          stiffness: 20,
-          damping: 15,
-          mass: 2,
+          boxShadow: { duration: 5 },
+          duration: 1.5,
+          ease: "easeInOut",
+          repeatType: "reverse",
+          damping: 10,
+          stiffness: 10,
         }}
-        className="fixed z-50 hidden md:flex overflow-hidden left-0 w-20 border-r border-white/5 dark:border-black/20  min-h-screen items-center justify-center "
+        className="absolute border transition duration-700 p-2 rounded-2xl border-white/20 dark:border-black/20  top-12"
       >
-        <span className="block  absolute inset-0  pr-[1.5px] linear-overlay " />
-        <span className="absolute p-5 top-0 bg-white dark:bg-black blur-3xl"></span>
-        <span className="absolute p-5 bottom-0 bg-white dark:bg-black blur-3xl"></span>
-        <motion.div
-          onAnimationComplete={() =>
-            setBoxShadow("0 0 20px 0 rgba(255,255,255,0.3)")
-          }
-          style={{ boxShadow }}
-          animate={{ scale: [0, 2, 1] }}
-          transition={{
-            boxShadow: { duration: 5 },
-            duration: 1.5,
-            ease: "easeInOut",
-            repeatType: "reverse",
-            damping: 10,
-            stiffness: 10,
-          }}
-          className="absolute border transition duration-700 p-2 rounded-2xl border-white/20 dark:border-black/20  top-12"
+        <motion.svg
+          opacity={0.5}
+          initial="hidden"
+          animate="visible"
+          width="30"
+          height="30"
+          viewBox="0 0 144 350"
         >
-          <motion.svg
-            opacity={0.5}
-            initial="hidden"
-            animate="visible"
-            width="40"
-            height="40"
-            viewBox="0 0 144 345"
-          >
-            <motion.path
-              variants={Variants}
-              fill="#FFFFFF"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          <motion.path
+            className="dark:fill-black"
+            strokeWidth={1}
+            fill="#fff"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M1.000000,339.000000 
 	C1.000000,230.979111 1.000000,122.958206 1.370935,14.467100 
 	C2.294416,13.698007 3.132205,13.538358 3.356332,13.079177 
@@ -108,12 +108,12 @@ M1.000000,339.000000
 	C49.312439,346.000000 28.624876,346.000000 7.467261,345.639404 
 	C4.998138,343.185852 2.999069,341.092926 1.000000,339.000000 
 z"
-            />
-            <motion.path
-              fill="none"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          />
+          <motion.path
+            fill="none"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M126.531342,0.999999 
 	C127.161644,1.246014 127.469963,1.704241 127.464272,1.708178 
 	C120.120766,6.784101 120.940758,14.396912 120.964066,21.896797 
@@ -135,12 +135,12 @@ M126.531342,0.999999
 	C1.000000,9.680349 1.000000,5.360698 1.000000,1.000000 
 	C42.687553,1.000000 84.375114,1.000000 126.531342,0.999999 
 z"
-            />
-            <motion.path
-              fill="none"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          />
+          <motion.path
+            fill="none"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M145.000000,198.531342 
 	C144.240646,198.740662 143.121124,198.715988 142.776199,198.186615 
 	C137.956314,190.789124 126.532707,191.276474 121.964630,200.055252 
@@ -161,12 +161,12 @@ M145.000000,198.531342
 	C134.636078,145.108551 139.488525,137.084061 144.621841,129.002106 
 	C145.000000,152.020889 145.000000,175.041794 145.000000,198.531342 
 z"
-            />
-            <motion.path
-              fill="none"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          />
+          <motion.path
+            fill="none"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M70.468658,346.000000 
 	C73.026939,340.865295 76.101097,335.757690 79.068695,330.588928 
 	C82.670731,324.315155 86.299850,318.052338 89.711212,311.674561 
@@ -177,44 +177,44 @@ M70.468658,346.000000
 	C120.801476,334.326080 121.518806,340.487854 126.998352,345.625854 
 	C108.312439,346.000000 89.624878,346.000000 70.468658,346.000000 
 z"
-            />
-            <motion.path
-              fill="none"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          />
+          <motion.path
+            fill="none"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M1.000000,339.497925 
 	C2.999069,341.092926 4.998138,343.185852 6.998604,345.639404 
 	C5.079331,346.000000 3.158662,346.000000 1.000000,346.000000 
 	C1.000000,344.001343 1.000000,341.998566 1.000000,339.497925 
 z"
-            />
-            <motion.path
-              fill="none"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          />
+          <motion.path
+            fill="none"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M145.000000,6.500529 
 	C143.001266,5.249043 141.002548,3.498085 139.001907,1.373564 
 	C140.913223,1.000000 142.826462,1.000000 145.000000,1.000000 
 	C145.000000,2.663430 145.000000,4.332244 145.000000,6.500529 
 z"
-            />
-            <motion.path
-              fill="none"
-              opacity="1.000000"
-              stroke="none"
-              d="
+          />
+          <motion.path
+            fill="none"
+            opacity="1.000000"
+            stroke="none"
+            d="
 M141.500000,346.000000 
 	C142.114838,343.803436 143.229691,341.606873 144.672272,339.705139 
 	C143.768051,341.884033 147.963928,346.481964 141.500000,346.000000 
 z"
-            />
-          </motion.svg>
-        </motion.div>
-        <motion.div className="absolute bottom-4">
-          <SwitchTheme />
-        </motion.div>
+          />
+        </motion.svg>
       </motion.div>
+      <motion.div className="absolute bottom-4">
+        <SwitchTheme />
+      </motion.div>
+    </motion.div>
   );
 }
