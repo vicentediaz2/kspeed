@@ -9,7 +9,7 @@ const App = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(null);
 
   return (
-    <div className="App">
+    <div>
       {!selectedLanguage ? (
         <LanguageSelector onLanguageSelect={setSelectedLanguage} />
       ) : (
