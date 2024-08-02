@@ -1,27 +1,97 @@
-"use client";
+import React, { useRef } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useSpring,
+  
+} from "framer-motion";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import HeroText from "../HeroText";
-import "../../styles/LinearOverlay.css";
-export default function Hero() {
+import { Variants } from "../utils/variants";
+import "../styles/LinearOverlay.css";
+export default function FeaturesCard({ icon }) {
+  const ROTATION_RANGE = 32.5;
+  const HALF_ROTATION_RANGE = 32.5 / 2;
+  const ref = useRef(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const xSpring = useSpring(x);
+  const ySpring = useSpring(y);
+
+  const transform = useMotionTemplate`rotateX(${xSpring}deg) rotateY(${ySpring}deg)`;
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return [0, 0];
+
+    const rect = ref.current.getBoundingClientRect();
+
+    const width = rect.width;
+    const height = rect.height;
+
+    const mouseX = (e.clientX - rect.left) * ROTATION_RANGE;
+    const mouseY = (e.clientY - rect.top) * ROTATION_RANGE;
+
+    const rX = (mouseY / height - HALF_ROTATION_RANGE) * -1;
+    const rY = mouseX / width - HALF_ROTATION_RANGE;
+
+    x.set(rX);
+    y.set(rY);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <section className=" flex flex-col overflow-hidden max-w-5xl min-h-screen items-center justify-center  w-screen">
-      <div className="flex items-center justify-between ">
-        <div className="flex flex-col gap-2 items-center justify-center">
-          <div className="flex relative text-white mt-24  dark:text-black dark:opacity-50 items-center justify-center text-3xl font-bold text-true-gray-800">
-            <motion.svg
-              opacity={0.5}
-              width="40"
-              height="40"
-              viewBox="0 0 144 345"
-            >
-              <motion.path
-                className="dark:fill-black"
-                fill="#FFFFFF"
-                opacity="1.000000"
-                stroke="none"
-                d="
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transformStyle: "preserve-3d",
+        transform,
+      }}
+      initial={{ "--x": "100%", scale: 1 }}
+      animate={{ "--x": "-100%" }}
+      whileTap={{ scale: 0.97 }}
+      transition={{
+        repeat: Infinity,
+        repeatType: "loop",
+        repeatDelay: 1,
+        type: "spring",
+        stiffness: 20,
+        damping: 15,
+        mass: 2,
+        scale: {
+          type: "spring",
+          stiffness: 10,
+          damping: 5,
+          mass: 0.1,
+        },
+      }}
+      className="relative overflow-hidden z-[1] mb-32 flex items-center border dark:border-black/20 border-white/5 justify-center h-[27rem] w-96 rounded-xl bg-gradient-to-br "
+    >
+      
+      <div className="absolute bottom-0 left-0 w-10 h-10 dark:bg-black bg-white blur-3xl"></div>
+      <div className="absolute bottom-0 right-10 blur-3xl w-10 h-full z-10  -rotate-45 dark:bg-black bg-white rounded-full"></div>
+      <motion.svg
+         animate="visible"
+            initial="hidden"
+            opacity={0.5}
+            width="250"
+            height="250"
+            viewBox="0 0 144 350"
+          >
+            <motion.path
+              className="stroke-white dark:stroke-black dark:fill-none"
+              variants={Variants}
+
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1.000000,339.000000 
 	C1.000000,230.979111 1.000000,122.958206 1.370935,14.467100 
 	C2.294416,13.698007 3.132205,13.538358 3.356332,13.079177 
@@ -74,12 +144,12 @@ M1.000000,339.000000
 	C49.312439,346.000000 28.624876,346.000000 7.467261,345.639404 
 	C4.998138,343.185852 2.999069,341.092926 1.000000,339.000000 
 z"
-              />
-              <motion.path
-                fill="none"
-                opacity="1.000000"
-                stroke="none"
-                d="
+            />
+            <motion.path
+              fill="none"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M126.531342,0.999999 
 	C127.161644,1.246014 127.469963,1.704241 127.464272,1.708178 
 	C120.120766,6.784101 120.940758,14.396912 120.964066,21.896797 
@@ -101,12 +171,12 @@ M126.531342,0.999999
 	C1.000000,9.680349 1.000000,5.360698 1.000000,1.000000 
 	C42.687553,1.000000 84.375114,1.000000 126.531342,0.999999 
 z"
-              />
-              <motion.path
-                fill="none"
-                opacity="1.000000"
-                stroke="none"
-                d="
+            />
+            <motion.path
+              fill="none"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M145.000000,198.531342 
 	C144.240646,198.740662 143.121124,198.715988 142.776199,198.186615 
 	C137.956314,190.789124 126.532707,191.276474 121.964630,200.055252 
@@ -127,12 +197,12 @@ M145.000000,198.531342
 	C134.636078,145.108551 139.488525,137.084061 144.621841,129.002106 
 	C145.000000,152.020889 145.000000,175.041794 145.000000,198.531342 
 z"
-              />
-              <motion.path
-                fill="none"
-                opacity="1.000000"
-                stroke="none"
-                d="
+            />
+            <motion.path
+              fill="none"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M70.468658,346.000000 
 	C73.026939,340.865295 76.101097,335.757690 79.068695,330.588928 
 	C82.670731,324.315155 86.299850,318.052338 89.711212,311.674561 
@@ -143,96 +213,41 @@ M70.468658,346.000000
 	C120.801476,334.326080 121.518806,340.487854 126.998352,345.625854 
 	C108.312439,346.000000 89.624878,346.000000 70.468658,346.000000 
 z"
-              />
-              <motion.path
-                fill="none"
-                opacity="1.000000"
-                stroke="none"
-                d="
+            />
+            <motion.path
+              fill="none"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1.000000,339.497925 
 	C2.999069,341.092926 4.998138,343.185852 6.998604,345.639404 
 	C5.079331,346.000000 3.158662,346.000000 1.000000,346.000000 
 	C1.000000,344.001343 1.000000,341.998566 1.000000,339.497925 
 z"
-              />
-              <motion.path
-                fill="none"
-                opacity="1.000000"
-                stroke="none"
-                d="
+            />
+            <motion.path
+              fill="none"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M145.000000,6.500529 
 	C143.001266,5.249043 141.002548,3.498085 139.001907,1.373564 
 	C140.913223,1.000000 142.826462,1.000000 145.000000,1.000000 
 	C145.000000,2.663430 145.000000,4.332244 145.000000,6.500529 
 z"
-              />
-              <motion.path
-                fill="none"
-                opacity="1.000000"
-                stroke="none"
-                d="
+            />
+            <motion.path
+              fill="none"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M141.500000,346.000000 
 	C142.114838,343.803436 143.229691,341.606873 144.672272,339.705139 
 	C143.768051,341.884033 147.963928,346.481964 141.500000,346.000000 
 z"
-              />
-            </motion.svg>
-            <strong>SPEED</strong>
-          </div>
-        </div>
-      </div>
-
-      <div className="lg:2/6 xl:w-2/4  max-w-xs md:max-w-lg mx-auto  flex flex-col items-center justify-center text-center">
-        <HeroText label="Write" description=" as fast as you can." />
-        <div className="mt-6 text-xl z-0 dark:text-black/80 text-white font-light text-true-gray-500 antialiased">
-          Learn to type fast with AI and above all have fun.
-        </div>
-        <div className="p-4 relative">
-          <div className="w-10 blur-2xl opacity-50 h-10 absolute bg-white bottom-0 z-10 left-0"></div>
-          <div className="w-10 blur-2xl opacity-50 h-10 absolute bg-white top-10 z-10 right-0"></div>
-          <Link href="/pages/typingPage" passHref className="flex items-center justify-center"> 
-            <motion.button
-              initial={{ "--x": "100%", scale: 1 }}
-              animate={{ "--x": "-100%" }}
-              whileTap={{ scale: 0.97 }}
-              transition={{
-                repeat: Infinity,
-                repeatType: "loop",
-                repeatDelay: 1,
-                type: "spring",
-                stiffness: 20,
-                damping: 15,
-                mass: 2,
-                scale: {
-                  type: "spring",
-                  stiffness: 10,
-                  damping: 5,
-                  mass: 0.1,
-                },
-              }}
-              className="p-3 border-white/5 border dark:border-black/20 rounded-2xl mt-12 relative radial-gradient"
-            >
-              <span className="text-white flex items-center gap-1 text-xl font-medium dark tracking-wide dark:text-black h-full w-full relative linear-mask">
-                Play now
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    className="dark:stroke-black"
-                    opacity={0.5}
-                    fill="#ffff"
-                    d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.73 1.73 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.73 1.73 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.73 1.73 0 0 0 3.407 2.31zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.16 1.16 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.16 1.16 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732z"
-                  />
-                </svg>
-              </span>
-              <span className="block absolute inset-0 rounded-2xl p-px linear-overlay" />
-            </motion.button>
-          </Link>
-        </div>
-      </div>
-    </section>
+            />
+          </motion.svg>
+      <span className="block absolute inset-0  rounded-xl p-px linear-overlay" />
+    </motion.div>
   );
 }
