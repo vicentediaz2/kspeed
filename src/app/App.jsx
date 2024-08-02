@@ -6,14 +6,14 @@ import TypingGame from './components/TypingGame';
 
 
 const App = () => {
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [aiResponse, setAIResponse] = useState(null);
 
   return (
     <div>
-      {!selectedLanguage ? (
-        <LanguageSelector onLanguageSelect={setSelectedLanguage} />
+      {!aiResponse ? (
+        <LanguageSelector onLanguageSelect={setAIResponse} />
       ) : (
-        <TypingGame language={selectedLanguage} />
+        <TypingGame languageResponse={aiResponse} />
       )}
     </div>
   );

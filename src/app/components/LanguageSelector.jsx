@@ -1,7 +1,7 @@
 'use client'
 // components/LanguageSelector.js 
-import React,{ useState} from 'react';
-
+import React, { useState } from 'react';
+import { connectToAI } from './API/api';
 const languages = [
   { code: 'en', name: 'Inglés', flag: '🇬🇧' },
   { code: 'zh', name: 'Chino', flag: '🇨🇳' },
@@ -16,26 +16,38 @@ const languages = [
   { code: 'ko', name: 'Coreano', flag: '🇰🇷' },
   { code: 'id', name: 'Indonesio/Malayo', flag: '🇮🇩' },
 ];
-function LanguageSelector({ onLanguageSelect }) {
-  const [selectedLanguage, setSelectedLanguage] = useState(null);
 
-  return(
+function LanguageSelector({ onLanguageSelect }) {
+  const [selectedLanguage, setSelectedLanguage] = useState('');
+
+  const handleLanguageChange = (event) => {
+    setSelectedLanguage(event.target.value);
+  };
+
+  const handlePlayClick = () => {
+    if (selectedLanguage) {
+      const selectedLanguageInfo = languages.find(lang => lang.code === selectedLanguage);
+      onLanguageSelect(selectedLanguage);
+      connectToAI(selectedLanguageInfo);
+    } else {
+      alert('Por favor selecciona un idioma.');
+    }
+  };
+
+  return (
     <div className="language-selector">
       <h2>Selecciona un idioma</h2>
-      <div className="language-list">
+      <select value={selectedLanguage} onChange={handleLanguageChange}>
+        <option value="" disabled>Seleccione un idioma</option>
         {languages.map((language) => (
-          <div
-            key={language.code}
-            className="language-card"
-            onClick={() => onLanguageSelect(language.code)}
-          >
-            <div className="flag">{language.flag}</div>
-            <div className="name">{language.name}</div>
-          </div>
+          <option key={language.code} value={language.code}>
+            {language.flag} {language.name}
+          </option>
         ))}
-      </div>
+      </select>
+      <button onClick={handlePlayClick}>Play</button>
     </div>
-  )
+  );
 };
 
 export default LanguageSelector;

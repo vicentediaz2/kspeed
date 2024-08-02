@@ -2,7 +2,8 @@
 import React,{ useState, useEffect} from 'react';
 // components/TypingGame.js
 
-const TypingGame = ({ language }) => {
+const TypingGame = ({ languageResponse }) => {
+  console.log(languageResponse )
     const [level, setLevel] = useState('very_easy');
     const [textIndex, setTextIndex] = useState(0);
     const [userInput, setUserInput] = useState('');
@@ -97,7 +98,7 @@ const TypingGame = ({ language }) => {
             very_hard: ["Menjadi atau tidak menjadi, itulah pertanyaannya.", "Apakah lebih mulia menderita dalam pikiran."]
           },
     };
-    const targetText = textLevels[language][level][textIndex];
+    const targetText = textLevels[languageResponse][level][textIndex];
 
     useEffect(() => {
         setStartTime(new Date());
